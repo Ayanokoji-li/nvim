@@ -4,10 +4,17 @@ if not status then
   return
 end
 
-local status, keybindings = pcall(require, "keybingdings")
+local status, keybindings = pcall(require, "keybindings")
 
-if type(keybindings) ~= 'table' then
-  print('Error: keybindings is not a table')
+if not status then
+  print("not include keybindings")
+  return
+end
+
+-- print(keybindings.telescopeList)
+
+if type(keybindings.telescopeList) ~= 'table' then
+  print('Error: keybindings is not a table', os.date("%Y-%m-%d %H:%M:%S"))
   return
 end
 
