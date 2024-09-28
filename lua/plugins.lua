@@ -11,15 +11,26 @@ packer.startup({
 
     use ({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 
-    -- bufferline (新增)
+    -- bufferline
     use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }})
 
-    -- lualine (新增)
+    -- lualine
     use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
     use("arkav/lualine-lsp-progress")
 
-    -- telescope （新增）
-    use { 'nvim-telescope/telescope.nvim', requires = { "nvim-lua/plenary.nvim" } } end,
+    -- telescope
+    use { 'nvim-telescope/telescope.nvim', requires = { "nvim-lua/plenary.nvim" } } 
+
+    -- telescope extensions
+    use "LinArcX/telescope-env.nvim"
+
+    -- dashboard-nvim
+    use {'glepnir/dashboard-nvim',requires = {'nvim-tree/nvim-web-devicons'}}
+
+    -- project
+    use("ahmedkhalf/project.nvim")
+
+  end,
 
   config = {
     display = {
