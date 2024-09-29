@@ -100,6 +100,14 @@ map("n", "<leader>bw", ":BufferLinePickClose<CR>", opt)
 map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 -- 全局搜索
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
+-- 最近文件
+map("n", "<leader>f", ":Telescope oldfiles<CR>", opt)
+
+
+-- Treesitting
+-- 缩进格式化
+map("n", "<leader>=", "gg=G", opt)
+
 
 -- keybindings.lua
 local pluginKeys = {
