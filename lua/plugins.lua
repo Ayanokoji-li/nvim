@@ -1,60 +1,57 @@
-local packer = require("packer")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-packer.startup({
-  function(use)
+local plugins = {
+
+
+    'wbthomason/packer.nvim',
   
-    use 'wbthomason/packer.nvim'
-  
-    use 'folke/tokyonight.nvim'
+    'folke/tokyonight.nvim',
 
-    use  'navarasu/onedark.nvim'
+    'navarasu/onedark.nvim',
 
-    use ({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
+    { "kyazdani42/nvim-tree.lua", dependences = "kyazdani42/nvim-web-devicons" },
 
     -- bufferline
-    use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }})
+    { "akinsho/bufferline.nvim", dependences = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }},
 
     -- lualine
-    use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-    use("arkav/lualine-lsp-progress")
+    { "nvim-lualine/lualine.nvim", dependences = { "kyazdani42/nvim-web-devicons" } },
+    "arkav/lualine-lsp-progress",
 
     -- telescope
-    use { 'nvim-telescope/telescope.nvim', requires = { "nvim-lua/plenary.nvim" } } 
+    { 'nvim-telescope/telescope.nvim', dependence = { "nvim-lua/plenary.nvim" } },
 
     -- telescope extensions
-    use "LinArcX/telescope-env.nvim"
+    "LinArcX/telescope-env.nvim",
 
     -- dashboard-nvim
-    use {'glepnir/dashboard-nvim',requires = {'nvim-tree/nvim-web-devicons'}}
+    {'glepnir/dashboard-nvim', dependence = {'nvim-tree/nvim-web-devicons'}},
 
     -- project
-    use("ahmedkhalf/project.nvim")
+    "ahmedkhalf/project.nvim",
 
     -- nvim-treesitter
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
 
-    --------------------- LSP --------------------
-    use("williamboman/nvim-lsp-installer")
-    -- Lspconfig
-    use({ "neovim/nvim-lspconfig" })
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
 
-  end,
+    { "neovim/nvim-lspconfig"},
 
-  config = {
-    display = {
-      open_fn = function()
-        return require("packer.util").float({ border = "single" })
-      end,
-    }
-  }
-})
+}
 
-pcall(
-  vim.cmd,
-  [[
-    augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-    autogroup end
-  ]]
-)
+
+local opts = {} -- 注意要定义这个变量
+
+require("lazy").setup(plugins, opts)
