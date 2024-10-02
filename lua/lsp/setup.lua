@@ -1,4 +1,3 @@
-
 -- :h mason-default-settings
 require("mason").setup({
   ui = {
@@ -9,33 +8,36 @@ require("mason").setup({
     },
   },
 })
-local lspconfig = require('lspconfig')
+local status_mason_config, mason_config = pcall(require, "mason-config")
+local status_lspconfig, lspconfig = pcall(require, "nvim-lspconfig")
 
-require("mason-lspconfig").setup_handlers({
-  function (server_name)
-    require("lspconfig")[server_name].setup{}
-  end,
-  -- Next, you can provide targeted overrides for specific servers.
-  ["lua_ls"] = function ()
-    lspconfig.lua_ls.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" }
-          }
-        }
-    }
-  }
-  end,
-  ["clangd"] = function ()
-    lspconfig.clangd.setup {
-      cmd = {
-        "clangd",
-        "--header-insertion=never",
-        "--query-driver=/opt/homebrew/opt/llvm/bin/clang",
-        "--all-scopes-completion",
-        "--completion-style=detailed",
-      }
-    }
-  end
+if status_mason_config or status_lspconfig then
+  vim.notify("lsp 插件未找到")
+  return
+end
+
+mason_config.setup({
+  ensure_installed = {
+    "pyright",
+    "rust_analyzer",
+    "clangd",
+    "cmake",
+  },
 })
+local servers = {
+  lua_ls = require("lsp.config.lua"),
+}
+
+for name, config in pairs(servers) do
+  print("config", config)
+  if config ~= nil and type(config) == "table" then
+    -- 自定义初始化配置文件必须实现on_setup 方法
+    config.on_setup(lspconfig[name])
+  else
+    -- 使用默认参数
+    print(lspconfig[name])
+    lspconfig[name].setup({})
+  end
+end
+
+require(lsp.ui)

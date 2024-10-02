@@ -20,23 +20,23 @@ local plugins = {
 
     'navarasu/onedark.nvim',
 
-    { "kyazdani42/nvim-tree.lua", dependences = "kyazdani42/nvim-web-devicons" },
+    { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
 
     -- bufferline
-    { "akinsho/bufferline.nvim", dependences = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }},
+    { "akinsho/bufferline.nvim",  dependencies= { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }},
 
     -- lualine
-    { "nvim-lualine/lualine.nvim", dependences = { "kyazdani42/nvim-web-devicons" } },
+    { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
     "arkav/lualine-lsp-progress",
 
     -- telescope
-    { 'nvim-telescope/telescope.nvim', dependence = { "nvim-lua/plenary.nvim" } },
+    { 'nvim-telescope/telescope.nvim', dependencies = { "nvim-lua/plenary.nvim" } },
 
     -- telescope extensions
     "LinArcX/telescope-env.nvim",
 
     -- dashboard-nvim
-    {'glepnir/dashboard-nvim', dependence = {'nvim-tree/nvim-web-devicons'}},
+    {'glepnir/dashboard-nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
 
     -- project
     "ahmedkhalf/project.nvim",
@@ -46,7 +46,6 @@ local plugins = {
 
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-
     { "neovim/nvim-lspconfig"},
 
 }
