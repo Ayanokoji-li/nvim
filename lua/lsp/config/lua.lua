@@ -1,8 +1,14 @@
-require'lspconfig'.lua_ls.setup {
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
+
+local opts = {
   on_init = function(client)
+    print("loaded")
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
-      if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      if vim.uv.fs_stat(path..'/.luarc.json') or vim.uv.fs_stat(path..'/.luarc.jsonc') then
         return
       end
     end
@@ -30,4 +36,11 @@ require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {}
   }
+}
+
+-- 查看目录等信息
+return {
+    on_setup = function(server)
+        server:setup(opts)
+    end,
 }

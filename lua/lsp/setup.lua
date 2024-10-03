@@ -1,5 +1,23 @@
--- :h mason-default-settings
-require("mason").setup({
+local status, mason = pcall(require, "mason")
+if not status then
+  vim.notify("没有找到 mason")
+  return
+end
+
+local status, mason_config = pcall(require, "mason-lspconfig")
+if not status then
+  vim.notify("没有找到 mason-lspconfig")
+  return
+end
+
+local status, lspconfig = pcall(require, "lspconfig")
+if not status then
+  vim.notify("没有找到 lspconfig")
+  return
+end
+
+
+mason.setup({
   ui = {
     icons = {
       package_installed = "✓",
@@ -8,13 +26,6 @@ require("mason").setup({
     },
   },
 })
-local status_mason_config, mason_config = pcall(require, "mason-config")
-local status_lspconfig, lspconfig = pcall(require, "nvim-lspconfig")
-
-if status_mason_config or status_lspconfig then
-  vim.notify("lsp 插件未找到")
-  return
-end
 
 mason_config.setup({
   ensure_installed = {
@@ -22,22 +33,23 @@ mason_config.setup({
     "rust_analyzer",
     "clangd",
     "cmake",
+    "lua_ls",
   },
 })
 local servers = {
   lua_ls = require("lsp.config.lua"),
+  clangd = require("lsp.config.clangd"),
 }
 
 for name, config in pairs(servers) do
-  print("config", config)
   if config ~= nil and type(config) == "table" then
     -- 自定义初始化配置文件必须实现on_setup 方法
+    print(name, "use self config")
     config.on_setup(lspconfig[name])
   else
     -- 使用默认参数
-    print(lspconfig[name])
     lspconfig[name].setup({})
   end
 end
 
-require(lsp.ui)
+require("lsp.ui")

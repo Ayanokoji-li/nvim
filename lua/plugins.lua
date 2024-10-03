@@ -14,39 +14,49 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 
 
-    'wbthomason/packer.nvim',
-  
-    'folke/tokyonight.nvim',
+  'wbthomason/packer.nvim',
 
-    'navarasu/onedark.nvim',
+  'folke/tokyonight.nvim',
 
-    { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
+  'navarasu/onedark.nvim',
 
-    -- bufferline
-    { "akinsho/bufferline.nvim",  dependencies= { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }},
+  { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
 
-    -- lualine
-    { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
-    "arkav/lualine-lsp-progress",
+  -- bufferline
+  { "akinsho/bufferline.nvim",  dependencies= { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }},
 
-    -- telescope
-    { 'nvim-telescope/telescope.nvim', dependencies = { "nvim-lua/plenary.nvim" } },
+  -- lualine
+  { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
+  "arkav/lualine-lsp-progress",
 
-    -- telescope extensions
-    "LinArcX/telescope-env.nvim",
+  -- telescope
+  { 'nvim-telescope/telescope.nvim', dependencies = { "nvim-lua/plenary.nvim" } },
 
-    -- dashboard-nvim
-    {'glepnir/dashboard-nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
+  -- telescope extensions
+  "LinArcX/telescope-env.nvim",
 
-    -- project
-    "ahmedkhalf/project.nvim",
+  -- dashboard-nvim
+  {'glepnir/dashboard-nvim', dependencies = {'nvim-tree/nvim-web-devicons'}},
 
-    -- nvim-treesitter
-    { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+  -- project
+  "ahmedkhalf/project.nvim",
 
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig"},
+  -- nvim-treesitter
+  { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig"},
+
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/vim-vsnip",
+  "hrsh7th/cmp-vsnip",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "rafamadriz/friendly-snippets",
+
 
 }
 
