@@ -59,6 +59,12 @@ local plugins = {
 
   "onsails/lspkind-nvim",
   {"lukas-reineke/indent-blankline.nvim", main = "ibl", opt = {} },
+  {'nvimdev/lspsaga.nvim',dependencies = {
+    'nvim-treesitter/nvim-treesitter', -- optional
+    'nvim-tree/nvim-web-devicons',     -- optional
+  }},
+
+
 }
 
 

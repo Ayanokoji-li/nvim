@@ -67,6 +67,14 @@ lspkind.init({
     },
 })
 
+local saga = require('lspsaga')
+saga.setup({
+  ui = {
+    code_action = '',
+    sign_priority = 10,
+  }
+})
+
 local M ={}
 -- 为 cmp.lua 提供参数格式
 M.formatting = {

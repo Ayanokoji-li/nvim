@@ -32,7 +32,7 @@ ident_blankline.setup({
   scope = {
     show_start = true,
     enabled = true,
-    show_end = false,
+    show_end = true,
     injected_languages = false,
     highlight = { "Function", "Label" },
     priority = 500,
