@@ -57,7 +57,8 @@ local plugins = {
   "hrsh7th/cmp-cmdline",
   "rafamadriz/friendly-snippets",
 
-
+  "onsails/lspkind-nvim",
+  {"lukas-reineke/indent-blankline.nvim", main = "ibl", opt = {} },
 }
 
 
