@@ -71,7 +71,7 @@ local saga = require('lspsaga')
 saga.setup({
   ui = {
     code_action = '',
-    sign_priority = 10,
+    sign_priority = 1,
   }
 })
 
