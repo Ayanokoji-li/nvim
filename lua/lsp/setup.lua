@@ -40,6 +40,7 @@ local servers = {
   lua_ls = require("lsp.config.lua"),
   clangd = require("lsp.config.clangd"),
   pyright = require("lsp.config.pyright"),
+  bashls = require("lsp.config.bashls"),
 }
 
 for name, config in pairs(servers) do

@@ -102,6 +102,32 @@ map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
 map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bw", ":BufferLinePickClose<CR>", opt)
 
+local function is_buffer_in_other_splits(bufnr)
+  local windows = vim.api.nvim_list_wins()
+  local count = 0
+
+  for _, win in ipairs(windows) do
+    if vim.api.nvim_win_get_buf(win) == bufnr then
+      count = count + 1
+    end
+  end
+
+  return count > 1
+end
+
+-- Function to close the split and buffer if not in other splits
+function close_split_and_buffer()
+  local current_buf = vim.api.nvim_get_current_buf()
+  vim.cmd('close')
+  if not is_buffer_in_other_splits(current_buf) then
+    vim.cmd('bdelete ' .. current_buf)
+  end
+end
+
+vim.cmd('command! CloseSplitAndBuffer lua close_split_and_buffer()')
+-- Map the function to a keybinding
+map('n', '<leader>w', ':CloseSplitAndBuffer<CR>', opt)
+
 -- Telescope
 -- 查找文件
 map("n", "<C-p>", ":Telescope find_files<CR>", opt)
