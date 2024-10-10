@@ -39,12 +39,12 @@ mason_config.setup({
 local servers = {
   lua_ls = require("lsp.config.lua"),
   clangd = require("lsp.config.clangd"),
+  pyright = require("lsp.config.pyright"),
 }
 
 for name, config in pairs(servers) do
   if config ~= nil and type(config) == "table" then
     -- 自定义初始化配置文件必须实现on_setup 方法
-    print(name, "use self config")
     config.on_setup(lspconfig[name])
   else
     -- 使用默认参数
