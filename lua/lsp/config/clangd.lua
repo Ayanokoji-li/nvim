@@ -6,6 +6,7 @@ local opts = {
     common.disableFormat(client)
     common.keyAttach(bufnr)
   end,
+  cmd = { "clangd", "--background-index", "--query-driver=/usr/bin/g++" },
 }
 
 return {
