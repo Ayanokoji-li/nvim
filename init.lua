@@ -12,6 +12,7 @@ require('plugin-config.dashboard')
 require('plugin-config.project')
 require("plugin-config.nvim-treesitter")
 require("plugin-config.indent-blankline")
+require("plugin-config.copilot")
 
 require("lsp.setup")
 require("lsp.cmp")

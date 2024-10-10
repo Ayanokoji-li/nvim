@@ -111,10 +111,22 @@ map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
 map("n", "<leader>f", ":Telescope oldfiles<CR>", opt)
 
 
+-- copilot chat
+map("n", "<leader>cc", ":CopilotChat<CR>", opt)
+map("n", "<leader>cp", ":CopilotChatPost<CR>", opt)
+map("n", "<leader>cl", ":CopilotChatList<CR>", opt)
+map("n", "<leader>cd", ":CopilotChatDelete<CR>", opt)
+map("i", "<C-J>", 'copilot#Accept("<CR>")', opt)
+
+vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
+
 -- Treesitting
 -- 缩进格式化
 map("n", "<leader>=", "gg=G", opt)
-
 
 -- keybindings.lua
 local pluginKeys = {
