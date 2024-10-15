@@ -12,10 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-
-
-  'wbthomason/packer.nvim',
-
   'folke/tokyonight.nvim',
 
   'navarasu/onedark.nvim',
@@ -76,6 +72,18 @@ local plugins = {
       -- See Configuration section for rest
     },
   },  -- See Commands section for default commands if you want to lazy load on them
+  {'phaazon/hop.nvim', branch = 'v2', config = function() require'hop'.setup{keys = 'etovxqpdygfblzhckisuran'} end},
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,      -- Recommended
+    -- ft = "markdown" -- If you decide to lazy-load anyway
+
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons"
+    }
+  },
 }
 
 

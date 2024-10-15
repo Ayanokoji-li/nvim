@@ -64,8 +64,8 @@ map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
 
 -- visual模式下缩进代码
-map("v", "<", "<gv", opt)
-map("v", ">", ">gv", opt)
+map("n", "<", "<gv", opt)
+map("n", ">", ">gv", opt)
 -- 上下移动选中文本
 map("v", "J", ":move '>+1<CR>gv-gv", opt)
 map("v", "K", ":move '<-2<CR>gv-gv", opt)
@@ -135,6 +135,15 @@ map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
 -- 最近文件
 map("n", "<leader>f", ":Telescope oldfiles<CR>", opt)
+
+
+-- HOP
+-- 快速跳转
+map("n", "<leader>f", ":HopChar1<CR>", opt)
+
+
+-- Markdown 预览 
+map("n", "<leader>pm", ":Markview splitToggle<CR>", opt)
 
 
 -- copilot chat
@@ -214,7 +223,7 @@ end
 
 -- rename
 -- Lspsaga 替换 rn
-  map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
+map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 --map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 -- code action
 --[[
