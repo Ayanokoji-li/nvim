@@ -6,7 +6,9 @@ local opts = {
     common.disableFormat(client)
     common.keyAttach(bufnr)
   end,
-  cmd = { "clangd", "--background-index", "--query-driver=/usr/bin/g++" },
+  cmd = { "clangd", "--query-driver=/usr/bin/g++"},
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "h", "hpp", "inl" },
+  root_dir = require'lspconfig'.util.root_pattern(".clangd", "compile_commands.json", ".git", "compile_flags.txt")
 }
 
 return {

@@ -54,6 +54,7 @@ map("n", "s=", "<C-w>=", opt)
 
 
 -- Terminal相关
+map("n", "T", ":terminal<CR>", opt)
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
 map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
 map("t", "jj", "<C-\\><C-n>", opt)
@@ -64,8 +65,8 @@ map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
 
 -- visual模式下缩进代码
-map("n", "<", "<gv", opt)
-map("n", ">", ">gv", opt)
+map("v", "<", "<gv", opt)
+map("v", ">", ">gv", opt)
 -- 上下移动选中文本
 map("v", "J", ":move '>+1<CR>gv-gv", opt)
 map("v", "K", ":move '<-2<CR>gv-gv", opt)
@@ -133,13 +134,12 @@ map('n', '<leader>w', ':CloseSplitAndBuffer<CR>', opt)
 map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 -- 全局搜索
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
--- 最近文件
 map("n", "<leader>f", ":Telescope oldfiles<CR>", opt)
 
 
 -- HOP
 -- 快速跳转
-map("n", "<leader>f", ":HopChar1<CR>", opt)
+map("n", "<leader><leader>f", ":HopChar1<CR>", opt)
 
 
 -- Markdown 预览 
@@ -148,9 +148,7 @@ map("n", "<leader>pm", ":Markview splitToggle<CR>", opt)
 
 -- copilot chat
 map("n", "<leader>cc", ":CopilotChat<CR>", opt)
-map("n", "<leader>cp", ":CopilotChatPost<CR>", opt)
-map("n", "<leader>cl", ":CopilotChatList<CR>", opt)
-map("n", "<leader>cd", ":CopilotChatDelete<CR>", opt)
+map("v", "<leader>cc", ":CopilotChatExplain<CR>", opt)
 map("i", "<C-J>", 'copilot#Accept("<CR>")', opt)
 
 vim.g.copilot_no_tab_map = true

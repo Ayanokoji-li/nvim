@@ -43,11 +43,11 @@ vim.bo.autoread = true
 -- 禁止折行
 vim.wo.wrap = false
 -- 光标在行首尾时<Left><Right>可以跳到下一行
-vim.o.whichwrap = '<,>,[,]'
+-- vim.o.whichwrap = '<,>,[,]'
 -- 允许隐藏被修改过的buffer
 vim.o.hidden = true
 -- 鼠标支持
-vim.o.mouse = "a"
+vim.o.mouse = ""
 -- 禁止创建备份文件
 vim.o.backup = false
 vim.o.writebackup = false
@@ -78,4 +78,27 @@ vim.o.pumheight = 10
 vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
+
+
+-- 检查是否启用了X11转发
+local function is_x11_forwarding()
+    local display = os.getenv("DISPLAY")
+    return display ~= nil and display ~= ""
+end
+
+if is_x11_forwarding() then
+    vim.g.clipboard = {
+        name = 'xclip',
+        copy = {
+            ['+'] = 'xclip -selection clipboard',
+            ['*'] = 'xclip -selection primary',
+        },
+        paste = {
+            ['+'] = 'xclip -selection clipboard -o',
+            ['*'] = 'xclip -selection primary -o',
+        },
+        cache_enabled = 0,
+    }
+    print("X11 forwarding detected, using xclip as clipboard provider")
+end
 
