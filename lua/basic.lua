@@ -12,18 +12,18 @@ vim.wo.cursorline = true
 -- 显示左侧图标指示列
 vim.wo.signcolumn = "yes"
 -- 右侧参考线，超过表示代码太长了，考虑换行
--- vim.wo.colorcolumn = "80"
--- 缩进2个空格等于一个Tab
-vim.o.tabstop = 2
-vim.bo.tabstop = 2
-vim.o.softtabstop = 2
+vim.wo.colorcolumn = "88"
+-- 缩进4个空格等于一个Tab
+vim.o.tabstop = 4
+vim.bo.tabstop = 4
+vim.o.softtabstop = 4
 vim.o.shiftround = true
 -- >> << 时移动长度
-vim.o.shiftwidth = 2
-vim.bo.shiftwidth = 2
+vim.o.shiftwidth = 4
+vim.bo.shiftwidth = 4
 -- 空格替代tab
-vim.o.expandtab = true
-vim.bo.expandtab = true
+-- vim.o.expandtab = true
+-- vim.bo.expandtab = true
 -- 新行对齐当前行
 vim.o.autoindent = true
 vim.bo.autoindent = true
@@ -44,6 +44,7 @@ vim.bo.autoread = true
 vim.wo.wrap = false
 -- 光标在行首尾时<Left><Right>可以跳到下一行
 -- vim.o.whichwrap = '<,>,[,]'
+vim.o.whichwrap = ''
 -- 允许隐藏被修改过的buffer
 vim.o.hidden = true
 -- 鼠标支持
@@ -65,9 +66,9 @@ vim.g.completeopt = "menu,menuone,noselect,noinsert"
 vim.o.background = "dark"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
--- 不可见字符的显示，这里只把空格显示为一个点
+-- 不可见字符的显示，这里只把空格显示为一个点basi
 vim.o.list = true
-vim.o.listchars = "space:·"
+-- vim.o.listchars = "space:·"
 -- 补全增强
 vim.o.wildmenu = true
 -- Dont' pass messages to |ins-completin menu|
@@ -75,7 +76,7 @@ vim.o.shortmess = vim.o.shortmess .. 'c'
 -- 补全最多显示10行
 vim.o.pumheight = 10
 -- 永远显示 tabline
-vim.o.showtabline = 2
+-- vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
 
@@ -102,3 +103,4 @@ if is_x11_forwarding() then
     print("X11 forwarding detected, using xclip as clipboard provider")
 end
 
+vim.opt.autochdir = false

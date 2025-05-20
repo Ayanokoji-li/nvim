@@ -11,6 +11,16 @@ if not status then
   return
 end
 
+local status, nvim_tree = pcall(require, "nvim-tree")
+
+if not status then
+  print("not include nvim-tree")
+  return
+end
+-- 获取 nvim-tree 的当前工作目录
+local function get_nvim_tree_cwd()
+  return nvim_tree.get_node_at_cursor().absolute_path
+end
 -- print(keybindings.telescopeList)
 
 if type(keybindings.telescopeList) ~= 'table' then

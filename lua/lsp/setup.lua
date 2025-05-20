@@ -36,11 +36,14 @@ mason_config.setup({
     "lua_ls",
   },
 })
+
 local servers = {
   lua_ls = require("lsp.config.lua"),
   clangd = require("lsp.config.clangd"),
   pyright = require("lsp.config.pyright"),
   bashls = require("lsp.config.bashls"),
+  rust_analyzer = require("lsp.config.rust_analyzer"),
+  gopls = require("lsp.config.gopls"),
 }
 
 for name, config in pairs(servers) do

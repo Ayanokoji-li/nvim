@@ -3,6 +3,15 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
+
+local function on_attach(client, bufnr)
+    vim.api.nvim_command [[augroup Format]]
+    vim.api.nvim_command [[autocmd! * <buffer>]]
+    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+    vim.api.nvim_command [[augroup END]]
+end
+
+local common = require("lsp.common-config")
 local opts = {
   on_init = function(client)
     print("loaded")
@@ -35,7 +44,8 @@ local opts = {
   end,
   settings = {
     Lua = {}
-  }
+  },
+  on_attach = on_attach,
 }
 
 -- 查看目录等信息

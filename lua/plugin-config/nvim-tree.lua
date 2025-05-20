@@ -35,6 +35,7 @@ local function my_on_attach(bufnr)
     vim.keymap.set('n', 'f', api.fs.create, opts('Create'))
     vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
     vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
+    vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
     vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
     vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
     vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
@@ -44,15 +45,13 @@ end
 
 nvim_tree.setup({
     -- 不显示 git 状态图标
+
+    respect_buf_cwd = false,
+    sync_root_with_cwd = false,
+    update_cwd = false,
     git = {
         enable = false,
     },
-    -- project plugin 需要这样设置
-    update_focused_file = {
-        enable = true,
-        update_cwd = true,
-    },
-    update_cwd = true,
     -- 隐藏 .文件 和 node_modules 文件夹
     filters = {
         dotfiles = false,
@@ -60,7 +59,7 @@ nvim_tree.setup({
     },
     renderer = {
       root_folder_label = false,  -- 代替 hide_root_folder
-    },   
+    },
     sort = {
       sorter = "case_sensitive",
     },
@@ -77,6 +76,10 @@ nvim_tree.setup({
     },
     on_attach = my_on_attach,
     actions = {
+        change_dir = {
+            enable = true,
+            global = false,
+        },
         use_system_clipboard = true,
         open_file = {
             -- 首次打开大小适配
@@ -89,13 +92,6 @@ nvim_tree.setup({
       cmd = "open"
     },
     
-    -- project plugin 需要这样设置
-    update_cwd = true,
-    update_focused_file = {
-      enable = true,
-      update_cwd = true,
-    },
-
 })
 
 

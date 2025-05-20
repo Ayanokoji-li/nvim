@@ -6,6 +6,16 @@ local opt = {noremap = true, silent = true }
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- 保存文件
+map("n", "<C-s>", ":w<CR>", opt)
+map("i", "<C-s>", "<Esc>:w<CR>a", opt)
+
+-- 获得当前文件路径至系统剪切板
+map("n", "<leader>wp", ":let @+=expand('%:p')<CR>", opt)
+
+-- 搜索剪切板内容
+map("n", "<A-f>", "/<C-r>\"<CR>", opt)
+
 -- jj进入normal
 map("i", "jj", "<Esc>", opt)
 -- map("v", "jj", "<Esc>", opt)
@@ -98,7 +108,7 @@ map("n", "<C-h>", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<C-l>", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
-map("n", "<leader>bc", ":Bdelete!<CR>", opt)
+map("n", "<A-w>", ":Bdelete!<CR>", opt)
 map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
 map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bw", ":BufferLinePickClose<CR>", opt)
@@ -139,7 +149,12 @@ map("n", "<leader>f", ":Telescope oldfiles<CR>", opt)
 
 -- HOP
 -- 快速跳转
-map("n", "<leader><leader>f", ":HopChar1<CR>", opt)
+map("n", "<leader><leader>f", "<cmd>HopChar1<CR>", opt)
+map("v", "<leader><leader>f", "<cmd>HopChar1<CR>", opt)
+map("n", "<leader><leader>w", "<cmd>HopWord<CR>", opt)
+map("v", "<leader><leader>w", "<cmd>HopWord<CR>", opt)
+map("n", "<leader><leader>l", "<cmd>HopLine<CR>", opt)
+map("v", "<leader><leader>l", "<cmd>HopLine<CR>", opt)
 
 
 -- Markdown 预览 
@@ -185,39 +200,56 @@ local pluginKeys = {
 }
 
 pluginKeys.mapLSP = function(bufmap)
-  print("start set lsp map")
+  print("start set lsp map, cwd: " .. vim.fn.getcwd())
   -- rename
-  --[[
-  Lspsaga 替换 rn
+  -- Lspsaga 替换 rn
   map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
-  --]]
-  bufmap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+  --map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
   -- code action
   --[[
   Lspsaga 替换 ca
-  map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
   --]]
-  bufmap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+  map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+  -- map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
   -- go xx
   --[[
-    map('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
   map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
   --]]
-  bufmap("n", "gd", "<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>", opt)
+  map('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
+  map('n', 'gtd', '<cmd>Lspsaga goto_type_definition<CR>', opt)
+  map('n', 'gD',  '<cmd>Lspsaga peek_definition<CR>', opt)
+  map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opt)
+  -- map("n", "gd", "<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>", opt)
   --[[
-  map("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
   Lspsaga 替换 gh
   --]]
-  bufmap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+  map("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opt)
+  -- map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
   -- Lspsaga 替换 gr
-  bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+  -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
   --]]
-  --map("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
+  map("n", "gr", "<cmd>Lspsaga finder<CR>", opt)
   --Lspsaga 替换 gp, gj, gk
-  bufmap("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
-  bufmap("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-  bufmap("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
+  -- map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
+  -- map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
+  -- map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
+  -- diagnostic
+  map("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+  map("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
+  map("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
+  map("n", "go", "<cmd>Lspsaga outline<CR>", opt)
+  map("n", "gm", "<cmd>Lspsaga show_buf_diagnostics<CR>", opt)
 end
+
+-- 未用
+-- map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+-- map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
+-- map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
+-- map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
+-- map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)
+-- map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
+-- map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
+-- map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
 
 -- rename
 -- Lspsaga 替换 rn
@@ -236,6 +268,7 @@ map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
 map('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
 map('n', 'gtd', '<cmd>Lspsaga goto_type_definition<CR>', opt)
 map('n', 'gD',  '<cmd>Lspsaga peek_definition<CR>', opt)
+map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opt)
 -- map("n", "gd", "<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>", opt)
 --[[
   Lspsaga 替换 gh
@@ -255,16 +288,7 @@ map("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
 map("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
 map("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
 map("n", "go", "<cmd>Lspsaga outline<CR>", opt)
--- 未用
--- map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
--- map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
--- map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
--- map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
--- map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)
--- map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
--- map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
--- map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
-
+map("n", "gm", "<cmd>Lspsaga show_buf_diagnostics<CR>", opt)
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)

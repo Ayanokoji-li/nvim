@@ -4,11 +4,11 @@ local opts = {
   flags = common.flags,
   on_attach = function(client, bufnr)
     common.disableFormat(client)
-    common.keyAttach(bufnr)
+    -- common.keyAttach(bufnr)
   end,
-  cmd = { "clangd", "--query-driver=/usr/bin/g++"},
+  cmd = { "clangd", "--query-driver=/usr/bin/gcc"},
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "h", "hpp", "inl" },
-  root_dir = require'lspconfig'.util.root_pattern(".clangd", "compile_commands.json", ".git", "compile_flags.txt")
+  root_dir = require'lspconfig'.util.root_pattern(".clangd", "compile_commands.json", "compile_flags.txt")
 }
 
 return {
